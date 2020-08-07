@@ -1,5 +1,5 @@
 # Back End Desigm & Development task: Shopping Basket
-This is a development assignment for ECS. Before attempting this assignment, please take note of our [general instructions](../readme.md) and any additional instructions which may have been provided by the ECS recruiter. Reading the instructions carefully is part of the assignment.
+This is a development assignment for ECS. Before attempting this assignment, please take note of our [general instructions](readme.md) and any additional instructions which may have been provided by the ECS recruiter. Reading the instructions carefully is part of the assignment.
 
 ## Requirements
 
@@ -38,7 +38,7 @@ For any given basket, catalogue and offers your solution should return the sub-t
 * We are only interested in the behavior of the shopping basket pricer component. You do not need to build an API, web-interface, database or any component which adds and removes items from the basket. Try to stay focused on implementing the pricer, and especially the logic which determines which offers are applicable to a particular basket of goods.
 * Consider edge cases in your testing. For example, an three for the price of two offer should also give you six for the price of four and nine for the price of six. 
 * You can use 3rd party components if you think it will be helpful, for example in your testing. Use the included Pipfile to identify any dependencies your component needs. 
-* Provide some documentation that will help us run your submission. You can put your documentation in [the readme file](./readme.md)
+* Provide some documentation that will help us run your submission. You can put your documentation in [the readme file](readme.md)
 * You can assume all prices are in £GBP, no need to consider any other currencies. 
 * For this exercise, a floating point number is good enough to represent a money value, but if you have a better way to represent money, feel free to use it.
 
