@@ -36,4 +36,11 @@ def calculate_bogof(price: float, quantity: int, needed_items: int, free_items: 
     """
     # Don't allow negative values
     assert not any([x for x in [price, quantity, needed_items, free_items] if x < 0.0])
-    return price * int((quantity / needed_items) * free_items)
+
+    total_free_items = int(quantity / (needed_items + free_items))
+
+    if total_free_items:
+        discount = price * total_free_items
+        return round_up(discount)
+
+    return 0.0

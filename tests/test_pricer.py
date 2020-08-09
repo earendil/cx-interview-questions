@@ -57,7 +57,7 @@ class TestBasketPricer(TestCase):
 
         pricer = BasketPricer(self.basket, self.catalogue, self.offers)
 
-        self.assertEqual(2.45, pricer._calculate_total_discounts())
+        self.assertEqual(1.46, pricer._calculate_total_discounts())
 
     def test_no_discounts(self):
 
@@ -77,7 +77,7 @@ class TestBasketPricer(TestCase):
 
         pricer = BasketPricer(self.basket, self.catalogue, self.offers)
 
-        self.assertEqual(2.0, pricer._calculate_discount("Shampoo", 3))
+        self.assertEqual(2.0, pricer._calculate_discount("Shampoo", 4))
 
     def test_calculate_discount_unknown_discount(self):
 
@@ -93,7 +93,7 @@ class TestBasketPricer(TestCase):
 
         pricer = BasketPricer(self.basket, self.catalogue, self.offers)
 
-        self.assertEqual([5.16, 0.99, 4.17], pricer())
+        self.assertEqual((5.16, 0.99, 4.17), pricer())
 
     def test_assignment_example_two(self):
 
@@ -103,4 +103,4 @@ class TestBasketPricer(TestCase):
 
         pricer = BasketPricer(self.basket, self.catalogue, self.offers)
 
-        self.assertEqual([6.96, 0.95, 6.01], pricer())
+        self.assertEqual((6.96, 0.95, 6.01), pricer())

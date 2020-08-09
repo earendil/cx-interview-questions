@@ -23,11 +23,11 @@ class TestBOGOF(TestCase):
 
     def test_calculate_bogof(self):
         self.assertEqual(0.0, calculate_bogof(1.0, 1, 2, 1))
-        self.assertEqual(0.99, calculate_bogof(0.99, 2, 2, 1))
-        self.assertEqual(1.5, calculate_bogof(0.5, 6, 2, 1))
-        self.assertEqual(3.0, calculate_bogof(1.5, 6, 3, 1))
-        self.assertEqual(1.0, calculate_bogof(1.0, 5, 3, 1))
-        self.assertEqual(0.4, calculate_bogof(0.2, 4, 2, 1))
+        self.assertEqual(0.0, calculate_bogof(0.99, 2, 2, 1))
+        self.assertEqual(1.0, calculate_bogof(0.5, 6, 2, 1))
+        self.assertEqual(1.5, calculate_bogof(1.5, 6, 3, 1))
+        self.assertEqual(2.0, calculate_bogof(1.0, 8, 3, 1))
+        self.assertEqual(0.2, calculate_bogof(0.2, 3, 2, 1))
 
     def test_negative_value(self):
         with self.assertRaises(AssertionError):
