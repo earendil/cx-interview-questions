@@ -8,3 +8,9 @@ help:
 
 run_tests: ## [Runs the entire unit test suite.]
 	@python3.8 -m unittest discover
+
+run_example_one:  ## [Runs only the example one test.]
+	@python3.8 -m unittest tests.test_pricer.TestBasketPricer.test_assignment_example_one
+
+run_example_two:  ## [Runs only the example two test.]
+	@python3.8 -m unittest tests.test_pricer.TestBasketPricer.test_assignment_example_two

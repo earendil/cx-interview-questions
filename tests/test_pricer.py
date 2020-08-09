@@ -5,7 +5,6 @@ from shopping_basket.pricer import BasketPricer
 
 
 class TestBasketPricer(TestCase):
-
     def setUp(self):
 
         self.basket = defaultdict(int)
@@ -14,7 +13,7 @@ class TestBasketPricer(TestCase):
             "Biscuits": 1.20,
             "Sardines": 1.89,
             "Shampoo": 2.00,
-            "Corona Vaccine": 1000000000.00
+            "Corona Vaccine": 1000000000.00,
         }
 
         offer = namedtuple("Offer", ["name", "x", "y", "percentage"])
@@ -23,8 +22,7 @@ class TestBasketPricer(TestCase):
             "Baked Beans": offer("BuyXgetYfree", 2, 1, 0.0),
             "Sardines": offer("discount_percentage", 0, 0, 0.25),
             "Shampoo": offer("BuyXgetYfree", 3, 1, 0.0),
-            "Corona Vaccine": offer("BuyForFree", 0, 0, 1.0)
-
+            "Corona Vaccine": offer("BuyForFree", 0, 0, 1.0),
         }
 
     def test_empty_basket(self):

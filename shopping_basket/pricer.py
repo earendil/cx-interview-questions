@@ -1,6 +1,10 @@
 from typing import NamedTuple
 
-from shopping_basket.promotions import calculate_percentage_discount, calculate_bogof, round_up
+from shopping_basket.promotions import (
+    calculate_percentage_discount,
+    calculate_bogof,
+    round_up,
+)
 
 
 class BasketPricer(object):
