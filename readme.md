@@ -53,3 +53,5 @@ and return the values, leaving the formatting and displaying to a separate speci
 * Create specialised exceptions
 * Use `mock.patch` on a number of unit tests rather than letting them calculate the promotion.
 * Refactor `_calculate_discount` a better implementation of offers would allow the removal of the conditionality
+
+**The project has been formatted using [Black](https://github.com/psf/black) and security linted with [Bandit](https://github.com/PyCQA/bandit)**
