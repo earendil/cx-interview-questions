@@ -54,4 +54,4 @@ class TestBasketPricer(TestCase):
 
         pricer = BasketPricer(self.basket, self.catalogue, self.offers)
 
-        self.assertEqual(3.4, pricer._calculate_total_discounts())
+        self.assertEqual(2.45, pricer._calculate_total_discounts())

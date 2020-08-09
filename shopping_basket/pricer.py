@@ -1,6 +1,6 @@
 from typing import NamedTuple
 
-from shopping_basket.promotions import calculate_discount, calculate_bogof
+from shopping_basket.promotions import calculate_percentage_discount, calculate_bogof
 
 
 class BasketPricer(object):
@@ -8,7 +8,7 @@ class BasketPricer(object):
     """
 
     mapped_offers = {
-        "discount": calculate_discount,
+        "discount": calculate_percentage_discount,
         "BuyXgetYfree": calculate_bogof,
     }
 

@@ -11,7 +11,7 @@ def round_up(number: float):
     return floor(number * 100 + 0.5) / 100
 
 
-def calculate_discount(price: float, percentage: float) -> float:
+def calculate_percentage_discount(price: float, percentage: float) -> float:
     """ Calculates a percentage of given price up to 2 decimal places.
 
     :param price: A base price
@@ -20,7 +20,7 @@ def calculate_discount(price: float, percentage: float) -> float:
     """
 
     assert 0.0 < percentage < 1.0, "A discount must be between 0.0 and 1.0"
-    return round_up(price * (1 - percentage))
+    return round_up(price * percentage)
 
 
 def calculate_bogof(price: float, quantity: int, needed_items: int, free_items: int):

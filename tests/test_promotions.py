@@ -1,21 +1,22 @@
 from unittest import TestCase
 
-from shopping_basket.promotions import calculate_discount, calculate_bogof, round_up
+from shopping_basket.promotions import calculate_percentage_discount, calculate_bogof, round_up
 
 
 class TestDiscount(TestCase):
 
     def test_calculate_discount(self):
-        self.assertEqual(1.42, calculate_discount(1.89, 0.25))
-        self.assertEqual(0.5, calculate_discount(0.99, 0.5))
+        self.assertEqual(0.47, calculate_percentage_discount(1.89, 0.25))
+        self.assertEqual(0.5, calculate_percentage_discount(0.99, 0.5))
+        self.assertEqual(0.07, calculate_percentage_discount(0.23, 0.3))
 
     def test_larger_than_100_percent(self):
         with self.assertRaises(AssertionError):
-            calculate_discount(0.99, 1.2)
+            calculate_percentage_discount(0.99, 1.2)
 
     def test_negative_discount(self):
         with self.assertRaises(AssertionError):
-            calculate_discount(0.99, -0.2)
+            calculate_percentage_discount(0.99, -0.2)
 
 
 class TestBOGOF(TestCase):
