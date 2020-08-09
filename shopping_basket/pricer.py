@@ -1,6 +1,6 @@
 from typing import NamedTuple
 
-from shopping_basket.promotions import calculate_percentage_discount, calculate_bogof
+from shopping_basket.promotions import calculate_percentage_discount, calculate_bogof, round_up
 
 
 class BasketPricer(object):
@@ -8,7 +8,7 @@ class BasketPricer(object):
     """
 
     mapped_offers = {
-        "discount": calculate_percentage_discount,
+        "discount_percentage": calculate_percentage_discount,
         "BuyXgetYfree": calculate_bogof,
     }
 
@@ -34,11 +34,20 @@ class BasketPricer(object):
         for item, quantity in self.basket.items():
             subtotal += self.catalogue[item] * quantity
 
-        return subtotal
+        return round_up(subtotal)
 
-    def _apply_offer(self, item: str, quantity: int, offer: NamedTuple):
+    def _calculate_discount(self, item: str, quantity: int) -> float:
+        """ Calculates a discount available for an item by identifying
+            known discounts with offers available.
 
-        if "discount" == offer.name:
+        :param item: Item present in a given basket
+        :param quantity: The quantity of given item present in the basket
+        :return: A discount value
+        """
+
+        offer = self.offers[item]
+
+        if "discount_percentage" == offer.name:
             price = self.catalogue[item] * quantity
             return self.mapped_offers[offer.name](price, offer.percentage)
 
@@ -49,12 +58,15 @@ class BasketPricer(object):
         else:
             raise Exception(f"Unable to calculate offer: {offer.name}")
 
-    def _calculate_total_discounts(self):
+    def _calculate_total_discounts(self) -> float:
+        """ Calculates total value of promotions to be deducted from subtotal
 
+        :return: Total discounts
+        """
         discounts = 0.0
         for item, quantity in self.basket.items():
             if item in self.offers.keys():
-                discounts += self._apply_offer(item, quantity, self.offers[item])
+                discounts += self._calculate_discount(item, quantity)
         return discounts
 
     def __call__(self):
@@ -63,5 +75,6 @@ class BasketPricer(object):
 
         subtotal = self._calculate_subtotal()
         discount = self._calculate_total_discounts()
+        total = subtotal - discount
 
-        return subtotal, discount, 0.0
+        return subtotal, discount, total

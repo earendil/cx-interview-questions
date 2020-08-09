@@ -4,18 +4,35 @@ A solution to the Shopping Basket Pricer challenge.
 
 ### Dependencies:
 
-* Python3.6+
+* Python3.8
 * Make (optional)
 
 ### Usage:
 
-Ipsum Lorem 
+The basket pricer can be imported directly via: `from shopping_basket.pricer import BasketPricer`  
+It needs to be initialised with a basket, catalogue and offers argument.  
+It can then be called without any arguments returning the subtotal, discount and total values.
 
 Example:
 ```python
+from collections import namedtuple
 
+from shopping_basket.pricer import BasketPricer
+
+# These are just stubs, as they are implemented by a different team.
+offer = namedtuple("Offer", ["name", "x", "y", "percentage"])
+basket = {"Baked Beans": 2}
+catalogue = {"Baked Beans": 0.99}
+offers = {"Baked Beans": offer("discount_percentage", 0, 0, 0.25)}
+
+pricer = BasketPricer(basket, catalogue, offers)
+
+subtotal, discount, total = pricer()
 ```
 
+### Tests:
+
+* Run `make run_tests` or alternatively `python3.8 -m unittest discover` from the project root.
 
 ### Considerations:
 
@@ -33,4 +50,5 @@ and return the values, leaving the formatting and displaying to a separate speci
 ### Future Improvements:
 
 * Use https://code.google.com/archive/p/python-money/
-  
+* Create specialised exceptions
+* Use `mock.patch` on a number of unit tests rather than letting them calculate the promotion.
