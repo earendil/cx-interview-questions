@@ -1,7 +1,7 @@
 from unittest import TestCase
 from collections import defaultdict, namedtuple
 
-from shopping_basket.pricer import BasketPricer, calculate_discount, calculate_bogof
+from shopping_basket.pricer import BasketPricer
 
 
 class TestBasketPricer(TestCase):
@@ -55,23 +55,3 @@ class TestBasketPricer(TestCase):
         pricer = BasketPricer(self.basket, self.catalogue, self.offers)
 
         self.assertEqual(3.4, pricer._calculate_total_discounts())
-
-
-class TestDiscount(TestCase):
-
-    def test_calculate_discount(self):
-        self.assertEqual(1.42, calculate_discount(1.89, 0.25))
-        self.assertEqual(0.5, calculate_discount(0.99, 0.5))
-
-
-class TestBOGOF(TestCase):
-
-    def test_calculate_bogof(self):
-        self.assertEqual(0, calculate_bogof(1, 2, 1))
-        self.assertEqual(1, calculate_bogof(2, 2, 1))
-        self.assertEqual(3, calculate_bogof(6, 2, 1))
-        self.assertEqual(2, calculate_bogof(6, 3, 1))
-        self.assertEqual(1, calculate_bogof(5, 3, 1))
-
-# TODO: * TEST ALL HELPER FUNCTIONS
-# TODO: * MAYBE MOVE OFFER'S LOGIC ELSEWHERE

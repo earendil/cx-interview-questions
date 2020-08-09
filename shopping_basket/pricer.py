@@ -1,24 +1,11 @@
-from math import floor
 from typing import NamedTuple
 
-
-def round_up(number: float):
-    """ Round half up to 2 decimal places.
-    """
-    return floor(number * 100 + 0.5) / 100
-
-
-def calculate_discount(price: float, percentage: float):
-    return round_up(price * (1 - percentage))
-
-
-def calculate_bogof(quantity: int, needed_items: int, free_items: int):
-    """ https://en.wikipedia.org/wiki/Buy_one,_get_one_free
-    """
-    return int((quantity / needed_items) * free_items)
+from shopping_basket.promotions import calculate_discount, calculate_bogof
 
 
 class BasketPricer(object):
+    """ A class that calculates the price of goods including any applicable discounts
+    """
 
     mapped_offers = {
         "discount": calculate_discount,
@@ -26,12 +13,23 @@ class BasketPricer(object):
     }
 
     def __init__(self, basket, catalogue, offers):
+        """ BasketPricer object initialiser
+
+        :param basket: A collection of goods a customer wishes to buy
+        :param catalogue: The products currently sold by the supermarket
+        :param offers: These are pricing rules which under some circumstances
+                       may cause one or more items in the basket to be discounted
+        """
         self.basket = basket
         self.catalogue = catalogue
         self.offers = offers
 
-    def _calculate_subtotal(self):
+    def _calculate_subtotal(self) -> float:
+        """ Helper that generates the total price for all items in the basket prior to
+            any discount being applied
 
+        :return: The subtotal price
+        """
         subtotal = 0.0
         for item, quantity in self.basket.items():
             subtotal += self.catalogue[item] * quantity
@@ -45,8 +43,8 @@ class BasketPricer(object):
             return self.mapped_offers[offer.name](price, offer.percentage)
 
         elif "BuyXgetYfree" == offer.name:
-            free_items = self.mapped_offers[offer.name](quantity, offer.x, offer.y)
-            return self.catalogue[item] * free_items
+            price = self.catalogue[item]
+            return self.mapped_offers[offer.name](price, quantity, offer.x, offer.y)
 
         else:
             raise Exception(f"Unable to calculate offer: {offer.name}")
@@ -64,5 +62,6 @@ class BasketPricer(object):
             return 0.0, 0.0, 0.0
 
         subtotal = self._calculate_subtotal()
+        discount = self._calculate_total_discounts()
 
-        return subtotal, 0.0, 0.0
+        return subtotal, discount, 0.0
